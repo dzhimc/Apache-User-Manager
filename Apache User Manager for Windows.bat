@@ -1,7 +1,7 @@
 REM *** Set the correct paths for the following 3 variables *** :
 
 REM Path for "htpasswd.exe" (include htpasswd.exe in path):
-set HTPASSWD_FILE=""
+set HTPASSWDEXE_FILE=""
 REM Path for user authentication file (AuthUserFile) (include file name in path):
 set AUTH_USER_FILE=""
 REM Path for group authorization file (AuthGroupFile) (if module used) (include file name in path):
@@ -76,8 +76,8 @@ echo.
 if %ERRORLEVEL%==0 (echo Username already exists, enter new password.)
 if %ERRORLEVEL% neq 0 (echo Creating new username.)
 echo.
-if "%MENUOPTION%"=="1" (%HTPASSWD_FILE% %AUTH_USER_FILE% %A_USERNAME%)
-if "%MENUOPTION%"=="2" (%HTPASSWD_FILE% -B -C 12 %AUTH_USER_FILE% %A_USERNAME%)
+if "%MENUOPTION%"=="1" (%HTPASSWDEXE_FILE% %AUTH_USER_FILE% %A_USERNAME%)
+if "%MENUOPTION%"=="2" (%HTPASSWDEXE_FILE% -B -C 12 %AUTH_USER_FILE% %A_USERNAME%)
 echo.
 echo.
 echo *** Update the group authorization file (AuthGroupFile) if required! ***
@@ -102,7 +102,7 @@ echo Enter the username to delete (case sensitive)
 set /p A_USERNAME=or press enter to return to menu: 
 if not defined A_USERNAME (goto MENU)
 for /f "tokens=2 delims= " %%J in ("%A_USERNAME%") do goto USERSPACEERROR
-%HTPASSWD_FILE% -D %AUTH_USER_FILE% %A_USERNAME%
+%HTPASSWDEXE_FILE% -D %AUTH_USER_FILE% %A_USERNAME%
 echo.
 echo.
 echo *** Update the group authorization file (AuthGroupFile) if required! ***
@@ -127,7 +127,7 @@ echo Enter the username to verify (case sensitive)
 set /p A_USERNAME=or press enter to return to menu: 
 if not defined A_USERNAME (goto MENU)
 for /f "tokens=2 delims= " %%J in ("%A_USERNAME%") do goto USERSPACEERROR
-%HTPASSWD_FILE% -v %AUTH_USER_FILE% %A_USERNAME%
+%HTPASSWDEXE_FILE% -v %AUTH_USER_FILE% %A_USERNAME%
 echo.
 echo.
 echo Press any key to continue...
